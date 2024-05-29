@@ -1,0 +1,32 @@
+load("@build_bazel_rules_apple//apple:ios.bzl", "ios_application")
+load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
+swift_library(
+    name = "SwiftLibrary",
+    srcs = glob([
+        "*.swift",
+    ]),
+    deps = [
+        "//HelloWorldKit:HelloWorldKit"
+    ],
+    data = glob([
+        "*.xcassets/**/*",
+        "*.lproj/**/*",
+    ]),
+    module_name = "BazelHelloWorld",
+    tags = ["manual"],
+    visibility = ["//visibility:public"],
+)
+
+ios_application(
+    name = "App",
+    bundle_id = "com.XXX.BazelHelloWorld",
+    families = [
+        "iphone",
+        "ipad",
+    ],
+    infoplists = [":Info.plist"],
+    minimum_os_version = "17.2",
+    visibility = ["//visibility:public"],
+    deps = [":SwiftLibrary"],
+)
+

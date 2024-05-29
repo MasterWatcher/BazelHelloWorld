@@ -1,0 +1,12 @@
+build --ios_minimum_os=17.2
+build --ios_simulator_device="iPhone 15"
+build --ios_simulator_version=17.2
+build --xcode_version=15.1
+build --verbose_failures
+
+build:ios --apple_platform_type=ios
+build:ios --copt=-fembed-bitcode
+build:ios --cxxopt=-std=c++17 # enables c++ 17
+
+build:ios_simulator --config=ios 
+build:ios_simulator --ios_multi_cpus=sim_arm64,x86_64
